@@ -21,6 +21,7 @@ def sub_menu (subs):
         print(CYAN + "1 -  add subscription")
         print("2 - edit current subscriptions")
         print("3 - delete subscription")
+        print("4 - duplicate subscription")
         print("0 - back" + RESET)
         print("=" * 50)
         print("\n")
@@ -51,6 +52,12 @@ def sub_menu (subs):
             case 3:
                 print()
                 delete_subscription(subs)
+            
+            case 4:
+                print()
+                sub,cat = make_subscription(subs)
+                add_subscription(subs, sub, cat)
+                input("Subscriptions added successfully \nPress Enter to go back to the menu")
             
             case 0:
                 break
@@ -265,7 +272,7 @@ def delete_subscription (subs):
             continue
     cat = cat_list[choice]
     
-    # a loop asking the user for the number of subscrption they want to delete in the category
+    # a loop asking the user for the number of subscription they want to delete in the category
     
     while True:
         try:

@@ -21,6 +21,7 @@ def sub_menu (subs):
         print(CYAN + "1 -  add subscription")
         print("2 - edit current subscriptions")
         print("3 - delete subscription")
+        print("4 - duplicate subscription")
         print("0 - back" + RESET)
         print("=" * 50)
         print("\n")
@@ -52,6 +53,10 @@ def sub_menu (subs):
                 print()
                 delete_subscription(subs)
             
+            case 4:
+                print()
+                duplicate_subscription(subs)
+
             case 0:
                 break
                 
@@ -60,6 +65,54 @@ def sub_menu (subs):
               input("please select from the menu, then press Enter to try again ")
               continue
 
+def duplicate_subscription (subs):
+    """
+    Prompts the user for subscription details and creates a subscription dictionary.
+
+    Args:
+        subs (dict): dictionary containing all the subscriptions
+     
+    Returns:
+        None
+    """
+    # a loop for choosing category, with input validation 
+    cat_list = get_categories.cat_to_list (subs)
+    cat_num = 0
+    view_module.display_subs(subs)
+    print("Choose a Category based on number")
+    for category in cat_list:
+        cat_num += 1 
+        print(f"#{cat_num} {category}")
+    while True:
+        try:
+            choice = int(input("Enter Number: ")) - 1 
+            if choice < 0 or choice >= len(cat_list):
+                input("number is out of range, then press Enter to try again")
+                continue
+            break
+        except ValueError:
+            input("please enter only a number, then press Enter to try again")
+            continue
+    cat = cat_list[choice]
+     # ask user for which subscription they want to duplicate, 
+     # then use the make_subscription function to create a new subscription with the same details but a different name
+    while True:
+        try:
+            sub_num = int(input("please enter the number of the subscription you want to duplicate ")) -1 # -1 to match user input to actual list index
+        except ValueError:
+            input("please enter only a number, then press Enter to try again")
+            continue
+        if sub_num < 0 or sub_num >= len(subs[cat]):
+            input("invalid subscription number, then press Enter to try again")
+            continue
+        else:
+            sub = subs[cat][sub_num].copy()
+            break
+     # ask user for new subscription name
+    name = input("What is the name of the new subscription? ")
+    sub['name'] = name
+    add_subscription(subs, sub, cat)
+    input("Subscriptions added successfully \nPress Enter to go back to the menu")
 
 def make_subscription (subs): 
     """
@@ -265,7 +318,7 @@ def delete_subscription (subs):
             continue
     cat = cat_list[choice]
     
-    # a loop asking the user for the number of subscrption they want to delete in the category
+    # a loop asking the user for the number of subscription they want to delete in the category
     
     while True:
         try:

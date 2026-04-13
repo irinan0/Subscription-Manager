@@ -37,6 +37,6 @@ FILE: manage_subs.py
 ------------------------------------------------------------
 FILE: view_module.py
 ------------------------------------------------------------
-[ ] Sort by name (alphabetical)
+- [ ] Sort by name (alphabetical)
     - Same pattern as the existing sort_by_cost(), but sort by the subscription name field.
 
